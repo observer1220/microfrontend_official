@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { createMemoryHistory, createBrowserHistory } from "history";
+import App from "./App";
 
 // Mount function to start up the app
 const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
@@ -11,7 +11,6 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
       initialEntries: [initialPath],
     });
 
-  // Container passes onNavigate to marketing
   if (onNavigate) {
     history.listen(onNavigate);
   }
@@ -19,11 +18,9 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   ReactDOM.render(<App history={history} />, el);
 
   return {
-    // Marketing passes onParentNavigate to container
     onParentNavigate({ pathname: nextPathname }) {
       const { pathname } = history.location;
 
-      // 避免重複導向
       if (pathname !== nextPathname) {
         history.push(nextPathname);
       }
@@ -31,13 +28,16 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   };
 };
 
-// If we are in development or in isolation, call the mount function immediately
+// If we are in development and in isolation,
+// call mount immediately
 if (process.env.NODE_ENV === "development") {
-  const devRoot = document.querySelector("#_marketing-dev-root");
+  const devRoot = document.querySelector("#_auth-dev-root");
+
   if (devRoot) {
     mount(devRoot, { defaultHistory: createBrowserHistory() });
   }
 }
 
-// We are running through container and we should export the mount function
+// We are running through container
+// and we should export the mount function
 export { mount };
