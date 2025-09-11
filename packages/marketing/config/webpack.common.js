@@ -2,13 +2,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/, // Handle both .js and .mjs files
-        exclude: /node_modules/, // Exclude node_modules directory
+        test: /\.m?js$/,
+        exclude: /node_modules/,
         use: {
-          loader: "babel-loader", // Use Babel loader for transpiling
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"], // Preset for modern JavaScript
-            plugins: ["@babel/plugin-transform-runtime"], // Plugin for optimizing helper code
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime'],
           },
         },
       },
